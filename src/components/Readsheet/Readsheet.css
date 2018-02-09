@@ -1,0 +1,76 @@
+.SearchBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 6.33rem;
+}
+
+.SearchBar input {
+  width: 500px;
+  padding: .88rem 0;
+  border: 1px solid grey;
+  border-radius: 3px;
+  margin-bottom: 2.22rem;
+  color: black;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.SearchBar input:focus {
+  outline: none;
+}
+
+.SearchBar a {
+  cursor: pointer;
+  width: 8.11rem;
+  padding: .77rem 0;
+  border-radius: 54px;
+  background-color: gray;
+  color: white;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: .833rem;
+  transition: background-color .25s;
+}
+
+.SearchBar a:hover {
+  background-color: teal;
+}
+
+.SearchBar-sort-options ul {
+  display: flex;
+  justify-content: center;
+  padding: .77rem 0;
+  margin-bottom: 2.22rem;
+  color: white;
+}
+
+.SearchBar-sort-options li {
+  list-style: none;
+  margin: 10px;
+  cursor: pointer;
+  width: 100px;
+  padding: .77rem 0;
+  border-radius: 52px;
+  background-color: gray;
+  line-height: 1.13;
+  text-align: center;
+  font-weight: 600;
+  font-size: .833rem;
+  transition: color .25s;
+}
+
+.SearchBar-sort-options li:hover {
+  background-color: teal;
+}
+
+.SearchBar-sort-options li.active,
+.SearchBar-sort-options li.active:hover {
+  background-color: teal;
+}
+
+.SearchBar-sort-options ul {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
