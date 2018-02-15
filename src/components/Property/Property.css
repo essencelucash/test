@@ -1,0 +1,45 @@
+.Property {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid teal;
+  padding: 5%;
+}
+
+.Property-action {
+  cursor: pointer;
+  padding: .5rem;
+  font-size: 1.05rem;
+  transition: color .25s;
+}
+
+.Property-action:hover {
+  color: teal;
+  font-weight: bolder;
+}
+
+.Property-information {
+  flex-grow: 1;
+  align-content: justify;
+  height: 72px;
+}
+
+.Property-information h3 {
+  align-content: center;
+  margin-bottom: .22rem;
+}
+
+.Property-information p {
+  font-size: 1rem;
+  display: inline-block;
+  align-content: justify;
+  font-weight: 300;
+  color: gray;
+}
+.Property-information input {
+  align-items: center;
+  display: inline-block;
+  align-content: justify;
+  color: inherit;
+  width: 10%;
+  padding-left: 1rem
+}

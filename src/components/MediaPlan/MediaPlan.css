@@ -1,0 +1,93 @@
+.MediaPlan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 45%;
+  max-height: 705px;
+  padding: 2.27rem 1.16rem;
+  background-color: white;
+  border-color: teal;
+  border-style: solid;
+}
+.MediaPlan-properties {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  width: 100%;
+  max-height: 705px;
+  background-color: white;
+  border-top: solid;
+  border-color: teal;
+}
+
+.MediaPlan input {
+  width: 50%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  border-bottom: solid thin teal;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  color: teal;
+  font-weight: bold;
+  padding-left: .4rem;
+  display: inline-block;
+}
+
+.TotalBudget {
+  display: inline-block;
+  color: black;
+  font-weight: normal;
+  text-align: center;
+  width: 65%;
+}
+.TotalBudget-above {
+  color: red;
+  font-weight: bold;
+  width: 50%;
+  text-align: left;
+  display: inline-block;
+  font-size: 1.25rem;
+}
+.TotalBudget-below {
+  color: teal;
+  font-weight: bold;
+  width: 50%;
+  text-align: left;
+  display: inline-block;
+  font-size: 1.25rem;
+}
+::placeholder{
+  color: inherit;
+  opacity: .25;
+}
+
+.Sheet-Export {
+  cursor: pointer;
+  width: 10rem;
+  padding: .77rem 0;
+  border-radius: 54px;
+  margin-bottom: 2%;
+  background-color: gray;
+  text-align: center;
+  font-size: .83rem;
+  color: white;
+  font-weight: bold;
+  transition: background-color .25s;
+}
+
+.Sheet-Export:hover {
+  background-color: teal;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+@media only screen and (max-width: 1020px) {
+  .Playlist {
+    width: 90%;
+  }
+}

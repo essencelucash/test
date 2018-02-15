@@ -6,12 +6,12 @@ class ReadSheet extends React.Component {
     super(props)
     this.state = {
       search: '',
-      type: 'Performance'
+      type: 'performance'
     };
 
     this.searchForOptions = {
-      'Brand': 'Brand',
-      'DR': 'Performance'
+      'Brand': 'brand',
+      'DR': 'performance'
     };
 
     this.handleSearch = this.handleSearch.bind(this);
