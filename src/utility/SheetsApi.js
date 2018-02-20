@@ -1,10 +1,10 @@
 const SheetsAPI = {
   CLIENT_ID : '1073821849521-t3o8s24nlmlfsv1tdpjf02enj9kv3be9.apps.googleusercontent.com',
-  REDIRECT_URI : 'http://localhost:3000/',
-  queryString : JSON.parse(localStorage.getItem('oauth2-test-params')),
+  REDIRECT_URI : 'http://localhost:3000/',//'http://cashroyale.surge.sh',
+  queryString : window.location.hash.substring(1),
   ACCESS_TOKEN: null,
-  authenticated: false,
   id: null,
+  userType: null,
   Results: null,
 
   checkSignInStatus(id,userType){
@@ -12,14 +12,14 @@ const SheetsAPI = {
     this.userType = userType;
     console.log('in sign in status');
     // Parse query string to see if page request is coming from OAuth 2.0 server.
-      var params = this.queryString;
-      //var regex = /([^&=]+)=([^&]*)/g, m;
-      console.log(params);
-      /*while (m = regex.exec(this.queryString)) {
+      var params = {};
+      var regex = /([^&=]+)=([^&]*)/g, m;
+      console.log(this.queryString);
+      while (m = regex.exec(this.queryString)) {
         params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
         // Try to exchange the param values for an access token.
       }
-      console.log(params);*/
+      console.log(params);
       let results = this.exchangeOAuth2Token(params);
       return results;
   },
@@ -29,7 +29,8 @@ const SheetsAPI = {
     trySampleRequest() {
       console.log('in sample request');
       window.history.pushState('access_token',null,'/');
-      var params = this.queryString;
+      console.log(localStorage);
+      var params = JSON.parse(localStorage.getItem('oauth2-test-params'));
       console.log(params);
       if (params && params['access_token']) {
         var batchGetByDataFilter = {
@@ -45,11 +46,8 @@ const SheetsAPI = {
         };
         return fetch(`https://sheets.googleapis.com/v4/spreadsheets/${this.id}/values/A:Z?access_token=${params['access_token']}`)
         .then(response => {
-          if(response.ok){
-            return response.json();
-          }
-          console.log(response);
-          }).then(jsonResponse => {
+          return response.json();
+        }).then(jsonResponse => {
           console.log(jsonResponse);
           var results =  this.createReturnObject(jsonResponse);
           console.log(results);
@@ -60,6 +58,8 @@ const SheetsAPI = {
             maxBudget: parseFloat(property.maxBudget),
             budgetPercent: parseFloat(property.avgPercBudget),
             cpa: parseFloat(Math.round(property.avgCpa*100)/100),
+            strikeFormat: false,
+            customBudget: false,
             predictedBudget: 0
           }));
         })
@@ -135,7 +135,7 @@ const SheetsAPI = {
         this.oauth2SignIn()
       }
     },
-    createReturnObject(response){
+    createReturnObject(response,userType){
       var QUARTER = {
         '03' : '1',
         '06' : '2',

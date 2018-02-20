@@ -3,6 +3,7 @@
   align-items: center;
   border-bottom: 1px solid teal;
   padding: 5%;
+  display: inline-block;
 }
 
 .Property-action {
@@ -20,7 +21,7 @@
 .Property-information {
   flex-grow: 1;
   align-content: justify;
-  height: 72px;
+  height: 5%;
 }
 
 .Property-information h3 {
@@ -35,11 +36,41 @@
   font-weight: 300;
   color: gray;
 }
-.Property-information input {
-  align-items: center;
+.Property-information p input{
+  color: black;
+  width: 15%;
+  font-size: 18px;
+  font-weight: bold;
+  border: transparent;
+  border-bottom: solid thin;
+}
+.Property-information-strike {
+  flex-grow: 1;
+  align-content: justify;
+  height: 5%;
+  text-decoration:line-through;
+  text-decoration-color: red;
+}
+
+.Property-information-strike h3 {
+  align-content: center;
+  margin-bottom: .22rem;
+  text-decoration: inherit;
+}
+
+.Property-information-strike p {
+  font-size: 1rem;
   display: inline-block;
   align-content: justify;
-  color: inherit;
-  width: 10%;
-  padding-left: 1rem
+  font-weight: 300;
+  text-decoration: inherit;
+  color: gray;
+}
+.Property-information-strike p input{
+  color: black;
+  width: 15%;
+  font-size: 18px;
+  font-weight: bold;
+  border: transparent;
+  border-bottom: solid thin;
 }

@@ -4,9 +4,29 @@ import './Property.css';
 class Property extends React.Component{
   constructor(props) {
     super(props)
+    this.state = {
+      customBudgetAmount: '',
+      placeHolder: 0
+    }
 
     this.addProperty = this.addProperty.bind(this);
     this.removeProperty = this.removeProperty.bind(this);
+    this.handleCustomChange = this.handleCustomChange.bind(this);
+  }
+  handleCustomChange(event){
+    console.log(event.target.value);
+    var number = event.target.value;
+    console.log(number);
+    if(number !== ''){
+      this.props.property.customBudget = true;
+      this.props.property.predictedBudget = number;
+    this.setState({
+      customBudgetAmount: addComas(number)
+    });
+  }else{
+    this.props.property.customBudget = false;
+  }
+
   }
 
   renderAction() {
@@ -17,23 +37,41 @@ class Property extends React.Component{
   }
 
   addProperty(event){
+    console.log(this.props.property);
     this.props.onAdd(this.props.property);
   }
 
   removeProperty(event){
+    console.log(this.props.property);
     this.props.onRemove(this.props.property);
+  }
+  textFormat(){
+    if(this.props.property.strikeFormat){
+      return (
+        <div className="Property-information-strike">
+        <h3>{this.props.property.name}</h3>
+        <p>Historic CPA: ${this.props.property.cpa} | Recomended Budget: ${this.estimatedBudget()}</p>
+        </div>
+      );
+    }else{
+      return(
+      <div className="Property-information">
+      <h3>{this.props.property.name}</h3>
+      <p>Historic CPA: ${this.props.property.cpa} | Recomended Budget: ${this.estimatedBudget()}</p>
+      </div>
+    );
+    }
   }
   estimatedBudget(){
     let budget = this.props.planBudget;
-    console.log(budget);
-    if(!this.props.property['predictedBudget']){
-      this.props.property['predicetedBudget'] = 0;
-    }
+    //console.log(budget);
     if(budget > 99999){
-      let predictedBudget = this.props.property.budgetPercent*budget;
-      this.props.property['predictedBudget'] = predictedBudget;
-      if (predictedBudget < this.props.property.maxBudget){
-        return addComas(predictedBudget);
+      let estimateBudget = this.props.property.budgetPercent*budget;
+          if(!this.props.property.customBudget){
+      this.props.property.predictedBudget = estimateBudget;
+    }
+      if (estimateBudget < this.props.property.maxBudget){
+        return addComas(estimateBudget);
       }else{
         return addComas(this.props.property.maxBudget);
       }
@@ -45,8 +83,7 @@ class Property extends React.Component{
     return(
       <div className="Property">
       <div className="Property-information">
-      <h3>{this.props.property.name}</h3>
-      <p>Historic CPA: ${this.props.property.cpa} | Recomended Budget: ${this.estimatedBudget()}</p>
+      {this.textFormat()}
       </div>
       {this.renderAction()}
       </div>
@@ -65,7 +102,7 @@ function addComas(amount){
   if(isNaN(i)){
     return ''
   }
-  var n = new String(i);
+  var n = i.toString();
   var x = [];
   while(n.length > 3){
     var nn = n.substring(n.length-3);

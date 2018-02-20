@@ -8,8 +8,8 @@
 }
 .SearchResults-Return {
   width: 100%;
-  height: 80%;
-  padding-top: 15%;
+  height: 75%;
+  padding-top: 20%;
   border-top: solid;
   border-color: inherit;
   overflow-y: scroll;
@@ -27,19 +27,20 @@
   }
 }
 
-.Track-information {
+.Property-information {
   flex-grow: 1;
-  display: flex;
   flex-direction: column;
+  display: block;
   justify-content: center;
-  height: 72px;
+  display: inline-flex;
+  height: 5%;
 }
 
-.Track-information h3 {
+.Property-information h3 {
   margin-bottom: .22rem;
 }
 
-.Track-information p {
+.Property-information p {
   font-size: .83rem;
   font-weight: 300;
   color: rgba(256, 256, 256, 0.8);

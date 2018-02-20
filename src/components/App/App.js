@@ -23,24 +23,23 @@ class App extends Component {
   }
   addProperty(property){
     //console.log(property);
-    let mediaPlanProperties = this.state.mediaPlan;
+    let mediaPlanList = this.state.mediaPlan;
     let found = false;
-    let addBudget = this.state.projectedBudget;
-    mediaPlanProperties.forEach(item => {
+    mediaPlanList.forEach(item => {
       if(item.name === property.name) {
         found = true;
       }
     });
     if(!found){
-      mediaPlanProperties.push(property);
+      mediaPlanList.push(property);
     }
     this.setState(
       {
-        mediaPlan : mediaPlanProperties,
-        projectedBudget: addBudget
+        mediaPlan : mediaPlanList,
       }
     );
-    //console.log(addBudget);
+    //console.log(this.state.mediaPlan);
+    //console.log(this.state.searchResults);
   }
   newBudget(budget){
     //console.log(budget);
@@ -58,13 +57,18 @@ class App extends Component {
         projectedBudget : removeBudget
       }
     );
-    console.log(removeBudget);
+    //console.log(removeBudget);
   }
   projectedBudget(){
     let projection = 0;
+    //console.log(this.state.mediaPlan);
     if(this.state.mediaPlanBudget > 99999){
       this.state.mediaPlan.forEach(property => {
-        projection += Math.round(property.predictedBudget.toString().replace(/,/g,''));
+        if(property.predictedBudget > property.maxBudget){
+          projection += Math.round(property.maxBudget);
+        }else{
+          projection += Math.round(property.predictedBudget.toString().replace(/,/g,''));
+        }
       });
     }
     return projection;
@@ -92,7 +96,7 @@ class App extends Component {
             </header>
             <ReadSheet onSearch={this.search}/>
             <div className="App-mediaPlan">
-              <SearchResults searchResults={this.state.searchResults} planBudget={this.state.mediaPlanBudget} onAdd={this.addProperty}/>
+              <SearchResults searchResults={this.state.searchResults} mediaPlan={this.state.mediaPlan} planBudget={this.state.mediaPlanBudget} onAdd={this.addProperty}/>
               <MediaPlan projectedBudget={this.projectedBudget()} planBudget={this.state.mediaPlanBudget} mediaPlan={this.state.mediaPlan} onRemove={this.removeProperty} newBudget={this.newBudget}/>
             </div>
         </div>

@@ -23,7 +23,7 @@ class MediaPlan extends React.Component {
     if(isNaN(i)){
       return ''
     }
-    var n = new String(i);
+    var n = i.toString();
     var x = [];
     while(n.length > 3){
       var nn = n.substring(n.length-3);
@@ -45,10 +45,10 @@ class MediaPlan extends React.Component {
       mediaPlanBudget: this.addComas(number)
     })
     this.passBudget(number);
+    //console.log(this.props.mediaPlan);
   }
   passBudget(budget){
-    budget = parseInt(budget.replace(/,/g,''),10);
-    //console.log(budget);
+    budget = Math.round(Number(budget.toString().replace(/,/g,'')));
     if(isNaN(budget)){
       this.props.newBudget(0);
     }else{
@@ -61,13 +61,32 @@ class MediaPlan extends React.Component {
       playlistName: ''
     });
   }
+  removeStrike(){
+    var propertyList = this.props.mediaPlan;
+    propertyList.map(item => {
+      return (item.strikeFormat = false);
+    });
+    //console.log(propertyList);
+    return propertyList;
+  }
   budgetEstimate(){
     //console.log(Math.round(this.state.mediaPlanBudget.replace(/,/g,'')));
     //console.log(this.props.projectedBudget);
-    if(this.props.projectedBudget > Math.round(this.state.mediaPlanBudget.replace(/,/g,''))){
-      return <p className="TotalBudget-above">${this.addComas(this.props.projectedBudget.toString())}</p>
+    let mediaPlanList = this.props.mediaPlan;
+    let projectedBudget = 0;
+    if(Number(this.state.mediaPlanBudget.replace(/,/g,'')) > 99999){
+      mediaPlanList.forEach(property => {
+        if(property.predictedBudget > property.maxBudget){
+           return projectedBudget += Math.round(property.maxBudget);
+        }else{
+           return projectedBudget += Math.round(property.predictedBudget.toString().replace(/,/g,''));
+        }
+      });
+    }
+    if(projectedBudget > Math.round(this.state.mediaPlanBudget.replace(/,/g,''))){
+      return <p className="TotalBudget-above">${this.addComas(projectedBudget.toString())}</p>
     }else{
-      return <p className="TotalBudget-below">${this.addComas(this.props.projectedBudget.toString())}</p>
+      return <p className="TotalBudget-below">${this.addComas(projectedBudget.toString())}</p>
     }
   }
   render(){
@@ -79,7 +98,7 @@ class MediaPlan extends React.Component {
         <div className="TotalBudget">Estimated total with fees: {this.budgetEstimate()}</div>
         <a className="Sheet-Export">Export to Sheet</a>
         <div className="MediaPlan-properties">
-        <PropertyList property={this.props.mediaPlan} planBudget={this.props.planBudget} onRemove={this.props.onRemove}/>
+        <PropertyList property={this.removeStrike()} planBudget={this.props.planBudget} onRemove={this.props.onRemove}/>
         </div>
       </div>
     );
